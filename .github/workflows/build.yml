@@ -28,7 +28,8 @@ jobs:
       - run: npx cap sync android
 
       - name: Build debug APK
-        run: cd android
+        run: |
+          cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
