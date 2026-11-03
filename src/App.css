@@ -1,184 +1,2172 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* ==========================================================
+   GAME EDUKASI: PETUALANGAN BANGUN DATAR
+   Tampilan Murni 1 Gambar Asli + Interaktivitas Seamless
+   ========================================================== */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
+/* Container Utama */
+.mobile-app-wrapper {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+/* Frame Layar Game (Rasio HP Mobile 9:16) */
+.game-screen-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 94vh;
+  min-height: 800px;
+  max-height: 920px;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 10px #1e293b;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+@media (max-width: 500px) {
+  .mobile-app-wrapper {
+    padding: 0;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  .game-screen-frame {
+    max-width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
   }
+}
+
+/* Wrapper Gambar Murni */
+.pure-game-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Gambar Asli Tanpa Distorsi */
+.pure-game-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ==========================================================
+   HOTSPOT INTERAKTIF TAK KASAT MATA (Murni Tanpa Timpaan Visual)
+   ========================================================== */
+.invisible-hotspot {
+  position: absolute;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.1s ease;
+}
+
+.invisible-hotspot:active {
+  transform: scale(0.96);
+}
+
+/* 1. Profil Siswa (Kiri Atas) */
+.hotspot-profile {
+  top: 1.8%;
+  left: 3%;
+  width: 38%;
+  height: 7.2%;
+  border-radius: 30px;
+}
+
+/* 2. Bintang ⭐ (Tengah Kanan Atas) */
+.hotspot-star {
+  top: 2.3%;
+  left: 49%;
+  width: 19%;
+  height: 4.8%;
+  border-radius: 20px;
+}
+
+/* 3. Berlian 💎 (Kanan Atas) */
+.hotspot-gem {
+  top: 2.3%;
+  left: 70%;
+  width: 17%;
+  height: 4.8%;
+  border-radius: 20px;
+}
+
+/* 4. Pengaturan ⚙️ (Pojok Kanan Atas) */
+.hotspot-settings {
+  top: 2.3%;
+  right: 2%;
+  width: 9%;
+  height: 4.8%;
+  border-radius: 12px;
+}
+
+/* 5. Misi Hari Ini (Kartu Putih Kanan) */
+.hotspot-mission {
+  top: 8.8%;
+  right: 3.5%;
+  width: 36%;
+  height: 7.5%;
+  border-radius: 16px;
+}
+
+/* 6. Tombol Kuning: Mulai Petualangan */
+.hotspot-play {
+  top: 45.2%;
+  left: 21%;
+  width: 58%;
+  height: 8.2%;
+  border-radius: 50px;
+}
+
+/* 7. Papan Kayu: Kenali Bangun Datar */
+.hotspot-signboard {
+  top: 61%;
+  left: 1%;
+  width: 26%;
+  height: 10%;
+  border-radius: 12px;
+}
+
+/* 8. Karakter Segitiga Kuning */
+.hotspot-character {
+  top: 60%;
+  left: 24%;
+  width: 38%;
+  height: 24%;
+  border-radius: 30px;
+}
+
+/* 9. Bilah Navigasi Bawah (5 Tab) */
+.bottom-nav-hotspots {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10.5%;
+  display: flex;
+  z-index: 10;
+}
+
+.invisible-nav-hotspot {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.invisible-nav-hotspot:active {
+  background: rgba(37, 99, 235, 0.1) !important;
+}
+
+/* ==========================================================
+   TOAST NOTIFIKASI
+   ========================================================== */
+.game-toast-banner {
+  position: absolute;
+  top: 20px;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.92);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  animation: slideToast 0.25s ease-out;
+  border: 2px solid #38bdf8;
+  text-align: center;
+  max-width: 90%;
+}
+
+@keyframes slideToast {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================
+   MODAL DIALOG (Hanya Tampil Saat Area Diklik)
+   ========================================================== */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: popUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 85vh;
+}
+
+.modal-card.wide-card {
+  max-width: 410px;
+}
+
+@keyframes popUp {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin: 0;
+}
+.modal-close-btn {
+  background: #e2e8f0;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 900;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close-btn:hover {
+  background: #cbd5e1;
+  color: #0f172a;
+}
+
+.modal-footer {
+  padding: 14px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  transition: transform 0.15s, background 0.2s;
+}
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Form Profil */
+.profile-form {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.avatar-grid {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.avatar-choice {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: #f1f5f9;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.2s;
+}
+.avatar-choice.selected {
+  border-color: #2563eb;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+.avatar-choice img {
+  width: 100%;
+  height: 100%;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus, .form-select:focus {
+  border-color: #2563eb;
+}
+
+.profile-stats-summary {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+.stat-badge {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.stat-label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 700;
+}
+.stat-value {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+/* Pengaturan */
+.settings-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.setting-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e293b;
+  display: block;
+}
+.setting-desc {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 28px;
+  background: #cbd5e1;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+}
+.toggle-switch.active {
+  background: #22c55e;
+}
+.toggle-thumb {
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.toggle-switch.active .toggle-thumb {
+  transform: translateX(22px);
+}
+
+.setting-divider {
+  height: 1px;
+  background: #e2e8f0;
+}
+.developer-tools h3 {
+  font-size: 13px;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.dev-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.btn-shortcut {
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  color: #166534;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.btn-danger-outline {
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  color: #991b1b;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Materi Bangun Datar */
+.materi-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 65vh;
+}
+.shape-tabs-list {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.shape-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  border: 2px solid transparent;
+  border-left-width: 4px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 12px;
+  color: #334155;
+}
+.shape-tab-btn.active {
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: #0f172a;
+}
+.shape-preview-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+.shape-huge-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.shape-preview-banner h3 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.shape-formulas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.formula-box {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+}
+.formula-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  display: block;
+}
+.formula-text {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+.shape-properties h4 {
+  font-size: 13px;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.shape-properties ul {
+  padding-left: 20px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Kuis Petualangan */
+.game-quiz-box {
+  padding: 18px;
+  text-align: center;
+}
+.quiz-progress-indicator {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+.quiz-visual-symbol {
+  font-size: 64px;
+  color: #f59e0b;
+  margin: 6px 0;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+.quiz-question-text {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 16px;
+  line-height: 1.35;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quiz-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  transition: all 0.2s;
+  text-align: left;
+}
+.quiz-option-btn:hover {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+.quiz-option-btn.option-correct {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+}
+.quiz-option-btn.option-wrong {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.opt-number {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+.text-success { color: #16a34a; font-weight: 800; }
+.text-danger { color: #dc2626; font-weight: 800; }
+.quiz-explanation {
+  font-size: 13px;
+  color: #475569;
+  margin: 6px 0 12px;
+}
+
+/* Hasil Petualangan */
+.game-result-box {
+  padding: 30px 20px;
+  text-align: center;
+}
+.result-trophy {
+  font-size: 64px;
+  margin-bottom: 10px;
+}
+.rewards-earned {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0 20px;
+}
+.reward-chip {
+  background: #fef08a;
+  border: 1.5px solid #eab308;
+  color: #854d0e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Peta & Prestasi */
+.peta-levels-list, .prestasi-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+.peta-level-row {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 10px 14px;
+  gap: 12px;
+  cursor: pointer;
+}
+.peta-level-row.current {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+.level-badge-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.level-info {
+  flex: 1;
+}
+.level-info h4 {
+  font-size: 14px;
+  margin: 0;
+  color: #0f172a;
+}
+.level-stars {
+  color: #f59e0b;
+  font-size: 14px;
+}
+.level-action-btn {
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+.btn-play {
+  background: #22c55e;
+  color: #ffffff;
+}
+.btn-locked {
+  background: #e2e8f0;
+  color: #94a3b8;
+}
+
+.prestasi-card {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 10px 14px;
+  gap: 12px;
+}
+.prestasi-icon {
+  font-size: 24px;
+}
+.prestasi-details {
+  flex: 1;
+}
+.prestasi-details h4 {
+  margin: 0;
+  font-size: 13px;
+  color: #0f172a;
+}
+.prestasi-details p {
+  font-size: 11px;
+  color: #64748b;
+  margin: 2px 0;
+}
+.reward-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #d97706;
+}
+.prestasi-claim-btn {
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+.prestasi-claim-btn.can-claim {
+  background: #22c55e;
+  color: #ffffff;
+  animation: pulse 1.2s infinite;
+}
+.prestasi-claim-btn.claimed {
+  background: #e2e8f0;
+  color: #94a3b8;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+
+/* ==========================================================
+   HOTSPOTS & ANIMASI PETA PETUALANGAN (IDENTIK & PRESISI)
+   ========================================================== */
+
+/* 1. Header Peta */
+.hotspot-peta-profile {
+  top: 1.6%;
+  left: 3%;
+  width: 37%;
+  height: 7.2%;
+  border-radius: 30px;
+}
+
+.hotspot-peta-stars {
+  top: 2.1%;
+  left: 49%;
+  width: 20%;
+  height: 4.8%;
+  border-radius: 20px;
+}
+
+.hotspot-peta-gems {
+  top: 2.1%;
+  left: 70%;
+  width: 17%;
+  height: 4.8%;
+  border-radius: 20px;
+}
+
+.hotspot-peta-settings {
+  top: 2.1%;
+  right: 2.3%;
+  width: 9.5%;
+  height: 4.8%;
+  border-radius: 12px;
+}
+
+/* 2. Sub-Header */
+.hotspot-peta-back {
+  top: 9.8%;
+  left: 3.3%;
+  width: 8.5%;
+  height: 4.8%;
+  border-radius: 50%;
+}
+
+.hotspot-peta-title-banner {
+  top: 8.5%;
+  left: 27%;
+  width: 46%;
+  height: 8.2%;
+  border-radius: 16px;
+}
+
+.hotspot-peta-daily-mission {
+  top: 8.0%;
+  right: 3.3%;
+  width: 24.5%;
+  height: 7.2%;
+  border-radius: 16px;
+}
+
+/* 3. Pulau 1: Pulau Bentuk */
+.hotspot-island-1-banner {
+  top: 16.4%;
+  left: 7.5%;
+  width: 32%;
+  height: 5.8%;
+  border-radius: 14px;
+}
+
+.hotspot-peta-character {
+  top: 26.5%;
+  left: 18%;
+  width: 10.5%;
+  height: 6.2%;
+  border-radius: 50%;
+}
+
+.hotspot-level-1 {
+  top: 25.5%;
+  left: 12%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-level-2 {
+  top: 25.5%;
+  left: 26.5%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-level-3 {
+  top: 25.8%;
+  left: 38.5%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+/* 4. Pulau 2: Hutan Segi Empat */
+.hotspot-island-2-banner {
+  top: 24.4%;
+  left: 58.3%;
+  width: 33.3%;
+  height: 5.8%;
+  border-radius: 14px;
+}
+
+.hotspot-node-7 {
+  top: 32.2%;
+  left: 62.5%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-8a {
+  top: 34.0%;
+  left: 71.3%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-9 {
+  top: 34.5%;
+  left: 82.5%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-8b {
+  top: 37.1%;
+  left: 59.2%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-12a {
+  top: 39.2%;
+  left: 72.1%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-12b {
+  top: 39.2%;
+  left: 85%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+/* 5. Pulau 3: Pegunungan Segitiga */
+.hotspot-island-3-banner {
+  top: 43.9%;
+  left: 9.6%;
+  width: 32%;
+  height: 5.8%;
+  border-radius: 14px;
+}
+
+.hotspot-node-13 {
+  top: 51.6%;
+  left: 15%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-14 {
+  top: 51.6%;
+  left: 27.1%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-15 {
+  top: 51.9%;
+  left: 38.8%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-16 {
+  top: 56.8%;
+  left: 16.3%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-17 {
+  top: 56.8%;
+  left: 26.7%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+.hotspot-node-18 {
+  top: 56.8%;
+  left: 37.1%;
+  width: 7.5%;
+  height: 4.2%;
+  border-radius: 50%;
+}
+
+/* 6. Pulau 4: Danau Lingkaran */
+.hotspot-island-4-banner {
+  top: 51.4%;
+  left: 61.3%;
+  width: 31.7%;
+  height: 5.8%;
+  border-radius: 14px;
+}
+
+.hotspot-node-19 {
+  top: 59.6%;
+  left: 64.2%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-node-20 {
+  top: 60.6%;
+  left: 75%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-node-21 {
+  top: 59.6%;
+  left: 85.8%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-node-22 {
+  top: 64.1%;
+  left: 66.7%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-node-23 {
+  top: 65%;
+  left: 77.9%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-node-24 {
+  top: 64.1%;
+  left: 87.5%;
+  width: 7.5%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+/* 7. Pulau 5: Kastil Geometri */
+.hotspot-island-5-banner {
+  top: 70.7%;
+  left: 30%;
+  width: 29.6%;
+  height: 5.6%;
+  border-radius: 14px;
+}
+
+.hotspot-node-25 {
+  top: 77.7%;
+  left: 38.3%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+.hotspot-node-26 {
+  top: 77.7%;
+  left: 47.1%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+.hotspot-node-27 {
+  top: 77.7%;
+  left: 56.7%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+.hotspot-node-28 {
+  top: 82.2%;
+  left: 38.8%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+.hotspot-node-29 {
+  top: 82.2%;
+  left: 47.9%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+.hotspot-node-30 {
+  top: 82.2%;
+  left: 57.1%;
+  width: 7.5%;
+  height: 3.8%;
+  border-radius: 50%;
+}
+
+/* 8. Koleksi Bentuk */
+.hotspot-koleksi-bentuk {
+  top: 81.0%;
+  left: 2.5%;
+  width: 27%;
+  height: 6.6%;
+  border-radius: 18px;
+}
+
+/* ==========================================================
+   ANIMASI INTERAKTIF
+   ========================================================== */
+
+/* Pulse untuk Level Aktif */
+.active-level-pulse {
+  animation: pulseLevelRing 1.6s infinite;
+}
+
+@keyframes pulseLevelRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+    transform: scale(0.98);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+    transform: scale(0.98);
+  }
+}
+
+/* Glow untuk Level yang sudah selesai */
+.completed-level-glow {
+  box-shadow: 0 0 6px 1px rgba(250, 204, 21, 0.4);
+}
+
+/* Shake ketika mengklik gembok terkunci */
+.shake-animation {
+  animation: lockShake 0.45s ease-in-out;
+}
+
+@keyframes lockShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px) rotate(-3deg); }
+  40%, 80% { transform: translateX(5px) rotate(3deg); }
+}
+
+
+/* ==========================================================
+   PULAU BENTUK FLOW (5 SCREENS WALKTROUGH & GAMEPLAY)
+   Identik, Interaktif, dan Responsif Sesuai Desain
+   ========================================================== */
+
+.flow-container-fullscreen {
+  position: absolute;
+  inset: 0;
+  background: #0f172a;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Stage Switcher Header */
+.flow-stage-tabs-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 8px 12px;
+  border-bottom: 2px solid #334155;
+  z-index: 20;
+}
+
+.flow-stage-tabs-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex: 1;
+  padding-bottom: 2px;
+}
+
+.flow-tab-btn {
+  background: #1e293b;
+  border: 1.5px solid #475569;
+  color: #94a3b8;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.flow-tab-btn.active {
+  background: #2563eb;
+  border-color: #60a5fa;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+}
+
+.flow-rules-pill-btn {
+  background: #065f46;
+  border: 1.5px solid #34d399;
+  color: #a7f3d0;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.flow-close-btn {
+  background: #ef4444;
+  border: none;
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Stage Screen Body Base */
+.stage-screen-body {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+/* Screen Caption Footer */
+.screen-caption-footer {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+  font-size: 11px;
+  line-height: 1.35;
+  padding: 8px 14px;
+  text-align: center;
+  border-top: 1px solid #334155;
+  margin-top: auto;
+}
+.screen-caption-footer strong {
+  color: #38bdf8;
+}
+
+/* ----------------------------------------------------
+   1. SCREEN 1: PETA DUNIA (PULAU BENTUK)
+   ---------------------------------------------------- */
+.stage-peta-view {
+  background: linear-gradient(180deg, #60a5fa 0%, #93c5fd 40%, #e0f2fe 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.game-top-bar-transparent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.avatar-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  padding: 4px 10px 4px 4px;
+  border: 1.5px solid #ffffff;
+}
+
+.chip-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
+.chip-info {
+  display: flex;
+  flex-direction: column;
+}
+.chip-name { font-size: 11px; font-weight: 800; color: #0f172a; }
+.chip-level { font-size: 9px; font-weight: 700; color: #16a34a; }
+
+.currency-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid #e2e8f0;
+}
+.star-pill { color: #d97706; }
+.gem-pill { color: #0284c7; }
+
+/* Wooden Title Banner */
+.stage-title-banner-wooden {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  gap: 10px;
+}
+
+.round-back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #38bdf8;
+  color: #0284c7;
+  font-size: 22px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.wooden-banner-box {
+  flex: 1;
+  background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
+  border: 3px solid #fef3c7;
+  border-radius: 14px;
+  padding: 6px 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+}
+.wooden-main-text {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.wooden-sub-text {
+  color: #fef08a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Island Map Area */
+.island-map-area {
+  position: relative;
+  flex: 1;
+  min-height: 360px;
+  background: radial-gradient(circle at 50% 60%, #86efac 0%, #4ade80 40%, transparent 70%);
+  margin: 10px 14px;
+  border-radius: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.scenery-castle-rock {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+  font-size: 32px;
+  pointer-events: none;
+}
+
+.level-nodes-container {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  margin-top: 20px;
+}
+
+.map-node-button {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+  border: 3px solid #ffffff;
+}
+.map-node-button.node-active {
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  left: 18%;
+  top: 20%;
+  animation: pulseLevelRing 1.6s infinite;
+}
+.node-stars {
+  font-size: 8px;
+  color: #fef08a;
+  line-height: 1;
+}
+
+.map-character-avatar {
+  position: absolute;
+  left: 32%;
+  top: 30%;
+  cursor: pointer;
+  animation: bounceSlow 2.5s infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.map-node-button.node-locked {
+  background: linear-gradient(135deg, #475569, #1e293b);
+  color: #94a3b8;
+  font-size: 11px;
+}
+.map-node-button:nth-child(3) { left: 52%; top: 25%; }
+.map-node-button:nth-child(4) { left: 74%; top: 35%; }
+.map-node-button:nth-child(5) { left: 16%; top: 68%; }
+.map-node-button:nth-child(6) { left: 45%; top: 72%; }
+.map-node-button:nth-child(7) { left: 72%; top: 70%; }
+
+.hadiah-dunia-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1.5px solid #e2e8f0;
+}
+.hadiah-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+.hadiah-shapes-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hadiah-prog-bar {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.prog-bar-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 8px;
+}
+
+/* ----------------------------------------------------
+   2. SCREEN 2: DETAIL LEVEL (GERBANG PULAU BENTUK)
+   ---------------------------------------------------- */
+.stage-detail-view {
+  background: linear-gradient(180deg, #93c5fd 0%, #bfdbfe 40%, #e0f2fe 100%);
+  padding: 14px;
+}
+
+.detail-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.top-counters {
+  display: flex;
+  gap: 8px;
+}
+.counter-chip {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border: 1.5px solid #cbd5e1;
+}
+
+.large-banner {
+  padding: 8px 16px;
+}
+.blue-ribbon-tag {
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 12px;
+  margin-top: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.objective-white-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 2px solid #e2e8f0;
+  margin: 12px 0;
+  text-align: center;
+}
+.tujuan-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+}
+.tujuan-desc {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 6px 0 12px;
+  line-height: 1.4;
+}
+
+.detail-star-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.star-empty {
+  font-size: 26px;
+  color: #93c5fd;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.detail-badges-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.badge-pill {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.detail-character-showcase {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  animation: floatSlow 3s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.btn-mulai-glossy {
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(180deg, #fef08a 0%, #facc15 50%, #eab308 100%);
+  color: #713f12;
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 20px rgba(234, 179, 8, 0.45), inset 0 2px 2px #ffffff, 0 4px 0 #ca8a04;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.btn-mulai-glossy:active {
+  transform: translateY(3px);
+  box-shadow: 0 4px 10px rgba(234, 179, 8, 0.45), inset 0 2px 2px #ffffff, 0 1px 0 #ca8a04;
+}
+
+/* ----------------------------------------------------
+   3. SCREEN 3: EKSPLORASI & KUMPULKAN (100% PERSIS SEPERTI GAMBAR USER)
+   ---------------------------------------------------- */
+.stage-eksplorasi-view {
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+}
+
+.eksplorasi-image-crisp {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Hotspots Top Bar Screen 3 */
+.hotspot-eksplorasi-pause {
+  top: 2.2%;
+  left: 6.5%;
+  width: 14%;
+  height: 6%;
+  border-radius: 50%;
+}
+
+.hotspot-eksplorasi-coin {
+  top: 2.2%;
+  left: 41%;
+  width: 24%;
+  height: 4.8%;
+  border-radius: 16px;
+}
+
+.hotspot-eksplorasi-stars {
+  top: 2.2%;
+  left: 69%;
+  width: 25%;
+  height: 4.8%;
+  border-radius: 16px;
+}
+
+.hotspot-eksplorasi-card {
+  top: 10.2%;
+  left: 6.8%;
+  width: 86.4%;
+  height: 14.2%;
+  border-radius: 18px;
+}
+
+/* Hotspots Collectibles on Stage */
+.hotspot-stage-coin-1 {
+  top: 36.5%;
+  left: 45%;
+  width: 9%;
+  height: 4.5%;
+  border-radius: 50%;
+}
+
+.hotspot-stage-coin-2 {
+  top: 34.5%;
+  left: 55.5%;
+  width: 9%;
+  height: 4.5%;
+  border-radius: 50%;
+}
+
+.hotspot-stage-character {
+  top: 39%;
+  left: 19%;
+  width: 28%;
+  height: 14%;
+  border-radius: 20px;
+}
+
+.hotspot-stage-blue-cube {
+  top: 51%;
+  left: 45%;
+  width: 13.5%;
+  height: 6.5%;
+  border-radius: 8px;
+}
+
+.hotspot-stage-yellow-tri {
+  top: 66%;
+  left: 14%;
+  width: 15%;
+  height: 7%;
+  border-radius: 8px;
+}
+
+.hotspot-stage-coin-3 {
+  top: 61%;
+  left: 23.5%;
+  width: 8%;
+  height: 4%;
+  border-radius: 50%;
+}
+
+.hotspot-stage-red-flag {
+  top: 32%;
+  left: 83%;
+  width: 13%;
+  height: 8%;
+  border-radius: 10px;
+}
+
+/* Virtual Control Buttons (Exact Position on Image) */
+.hotspot-control-left {
+  top: 88.0%;
+  left: 7.5%;
+  width: 22.8%;
+  height: 9.2%;
+  border-radius: 50%;
+}
+
+.hotspot-control-right {
+  top: 88.0%;
+  left: 32.0%;
+  width: 22.8%;
+  height: 9.2%;
+  border-radius: 50%;
+}
+
+.hotspot-control-jump {
+  top: 86.8%;
+  left: 68.2%;
+  width: 26.0%;
+  height: 10.4%;
+  border-radius: 50%;
+}
+
+/* Button Active Press Rings */
+.button-press-active-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 25;
+  box-shadow: 0 0 0 4px #38bdf8, 0 0 16px rgba(56, 189, 248, 0.85);
+  background: rgba(56, 189, 248, 0.28);
+  animation: buttonRingPulse 0.3s ease-out;
+}
+.button-press-active-ring.ring-left {
+  top: 88.0%;
+  left: 7.5%;
+  width: 22.8%;
+  height: 9.2%;
+}
+.button-press-active-ring.ring-right {
+  top: 88.0%;
+  left: 32.0%;
+  width: 22.8%;
+  height: 9.2%;
+}
+.button-press-active-ring.ring-jump {
+  top: 86.8%;
+  left: 68.2%;
+  width: 26.0%;
+  height: 10.4%;
+}
+
+@keyframes buttonRingPulse {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  50% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.85; }
+}
+
+/* Character Sprite Halo */
+.character-moving-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2.5px dashed #facc15;
+  animation: spinHalo 1.2s linear infinite;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+}
+@keyframes spinHalo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.stage-collectible-wrapper {
+  transition: transform 0.2s ease;
+}
+.stage-collectible-wrapper:hover {
+  transform: scale(1.15);
+}
+@keyframes itemPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.08);
+  }
+}
+
+/* Checkpoint Finish Banner */
+.stage-checkpoint-finish-banner {
+  position: absolute;
+  bottom: 14%;
+  left: 4%;
+  right: 4%;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  animation: popUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-lanjut-soal-banner {
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 900;
+  font-size: 13px;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.6), inset 0 2px 2px #dcfce7;
+  cursor: pointer;
+  animation: pulse 1.4s infinite;
+  white-space: nowrap;
+}
+
+/* Item Collected Hidden effect */
+.item-hidden {
+  opacity: 0.25 !important;
+  filter: grayscale(1) !important;
+  pointer-events: none !important;
+}
+
+/* ----------------------------------------------------
+   4. SCREEN 4: SOAL / TANTANGAN
+   ---------------------------------------------------- */
+.stage-soal-view {
+  background: linear-gradient(180deg, #93c5fd 0%, #e0f2fe 100%);
+  padding: 12px;
+}
+
+.quiz-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.timer-pill {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0284c7;
+  border: 1px solid #cbd5e1;
+}
+.quiz-prog-indicator {
+  font-size: 14px;
+  font-weight: 900;
+  color: #1e3a8a;
+}
+
+.quiz-top-progress-bar {
+  height: 8px;
+  background: #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #2563eb);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.quiz-main-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  border: 2px solid #e2e8f0;
+}
+.quiz-header-text {
+  font-size: 15px;
+  font-weight: 900;
+  color: #0f172a;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.quiz-illustration-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.quiz-options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-styled-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: all 0.15s ease;
+}
+.quiz-styled-option-btn:hover {
+  background: #f8fafc;
+  border-color: #93c5fd;
+}
+.opt-shape-symbol {
+  font-size: 20px;
+  line-height: 1;
+}
+.opt-shape-name {
+  flex: 1;
+  text-align: left;
+}
+.opt-check-badge {
+  background: #22c55e;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.option-state-correct {
+  background: #eff6ff !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+.option-state-wrong {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+}
+
+.quiz-explanation-box {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+.explanation-text {
+  font-size: 12px;
+  color: #334155;
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+.btn-next-question {
+  width: 100%;
+  background: #22c55e;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------
+   5. SCREEN 5: HASIL LEVEL
+   ---------------------------------------------------- */
+.stage-hasil-view {
+  background: linear-gradient(180deg, #60a5fa 0%, #93c5fd 50%, #e0f2fe 100%);
+  padding: 16px;
+  text-align: center;
+  position: relative;
+}
+
+.confetti-sky-layer {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  font-size: 24px;
+  pointer-events: none;
+}
+
+.victory-stars-banner {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0 10px;
+}
+.big-glowing-star {
+  font-size: 52px;
+  color: #facc15;
+  text-shadow: 0 0 16px rgba(250, 204, 21, 0.8), 0 4px 6px rgba(0,0,0,0.3);
+  animation: starPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.big-glowing-star.s2 {
+  font-size: 64px;
+  margin-top: -10px;
+}
+
+@keyframes starPop {
+  0% { transform: scale(0.2); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.victory-title-ribbon {
+  display: inline-block;
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+  padding: 8px 32px;
+  border-radius: 20px;
+  box-shadow: 0 6px 14px rgba(234, 88, 12, 0.4), inset 0 2px 2px #ffedd5;
+  border: 3px solid #ffffff;
+  margin-bottom: 12px;
+}
+
+.victory-mascot-center {
+  margin: 10px 0;
+  animation: bounceSlow 2s infinite;
+}
+
+.victory-score-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 14px 20px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+  border: 2px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.score-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.score-icon { font-size: 20px; }
+.xp-circle {
+  background: #a855f7;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-circle {
+  background: #22c55e;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-label {
+  flex: 1;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+}
+.score-val {
+  font-size: 16px;
+  font-weight: 900;
+  color: #0f172a;
+}
+.text-purple { color: #7c3aed !important; }
+.text-green { color: #16a34a !important; }
+
+.victory-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn-lanjutkan-green {
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4), inset 0 2px 2px #dcfce7;
+  cursor: pointer;
+}
+.btn-ulangi-outline {
+  background: #ffffff;
+  color: #475569;
+  border: 2px solid #cbd5e1;
+  border-radius: 24px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
 }
